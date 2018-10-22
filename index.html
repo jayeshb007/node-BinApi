@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <title>Testing socket.io</title>
+  </head>
+  <body>
+    <h1 id="socketio"> not connected </h1>
+    <div id="display"> </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      // Connect to our node/websockets server
+	var socket = io.connect('http://localhost:3000');
+      socket.on('connect', function() {
+        document.getElementById("socketio").innerHTML = "socket connected";
+      });
+      socket.on('showrows', function(rows) {
+        var html='';
+        for (var i=0; i<rows.length; i++) {
+          html += rows[i].firstname + ' ' + rows[i].lastname + '<br>';
+        }  
+        document.getElementById("display").innerHTML = html;
+        console.log(rows);
+      });
+    </script>
+  </body>
+</html>
